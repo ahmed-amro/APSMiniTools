@@ -2,9 +2,6 @@
 
 import test
 
-
-import file
-
 def RunFromRoot():
     print ("This is the main launcher for DigitalAPSReplica")
 
