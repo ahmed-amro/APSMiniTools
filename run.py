@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 
-import "Python/test.py"
+import test.py
+
+
+import file
 
 def RunFromRoot():
     print ("This is the main launcher for DigitalAPSReplica")
