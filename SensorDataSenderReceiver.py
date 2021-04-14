@@ -62,6 +62,9 @@ try:
 	sock = socket.socket(socket.AF_INET, # Internet
 		             socket.SOCK_DGRAM) # UDP
 	sock.bind((UDP_IP, UDP_PORT))
+	sock2 = socket.socket(socket.AF_INET, # Internet
+		             socket.SOCK_DGRAM) # UDP
+	sock2.bind((ReceiverUDP_IP, ReceiverUDP_PORT))
 except:
 	print("Something went wrong: couldn't establish connection")
 	pass
@@ -100,7 +103,7 @@ while MessageCount < MessageLimit:
 
 		try:
 			#sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) 
-			sock.sendto(data, (ReceiverUDP_IP, ReceiverUDP_PORT))
+			sock2.sendto(data, (ReceiverUDP_IP, ReceiverUDP_PORT))
 			print(" --> Forwarded to ["+str(ReceiverUDP_IP)+":"+str(ReceiverUDP_PORT)+"]")			
 			print("########################################S")
 		except KeyboardInterrupt:
