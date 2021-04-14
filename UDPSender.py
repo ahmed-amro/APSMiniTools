@@ -2,15 +2,33 @@
 
 import time
 import socket
-import netifaces as ni
+import sys
+import re
+
+regex = "^((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])$"
 
 
 print("Testing UDP Receiver\n")
 
-ni.ifaddresses('eth0')
-ip = ni.ifaddresses('eth0')[ni.AF_INET][0]['addr']
+def check(Ip):
+	valid = -1
+	# pass the regular expression
+	# and the string in search() method
+	if(re.search(regex, Ip)):
+		print("Valid Ip address")
+		valid = 1
+	else:
+		print("Invalid Ip address")
+		valid = 0
+	return valid
 
-UDP_IP = ip
+if check(sys.argv[1]):
+	UDP_IP = sys.argv[1]
+else:
+	print("The provided desticnation IP address is not valid")
+	exit()
+
+#UDP_IP = ip
 UDP_PORT = 10111
 MESSAGE = b"Hello, World!"
 

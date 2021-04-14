@@ -2,7 +2,7 @@
 
 
 import socket
-import netifaces as ni
+#import netifaces as ni
 import time
 import sys
 import re
@@ -22,22 +22,28 @@ def check(Ip):
 	return valid
 
 # Automatic Identification of local IP address 
-def get_local_IP(Interface):
-	ni.ifaddresses(Interface)
-	ip = ni.ifaddresses(Interface)[ni.AF_INET][0]['addr']	
-	return ip
+#def get_local_IP(Interface):
+#	ni.ifaddresses(Interface)
+#	ip = ni.ifaddresses(Interface)[ni.AF_INET][0]['addr']	
+#	return ip
 
-print("First argument = " + str(sys.argv[1]))
+print("First = " + str(sys.argv[1]) + "Second = "+ str(sys.argv[2]))
 if check(sys.argv[1]):
-	ReceiverUDP_IP = sys.argv[1]
+	UDP_IP = sys.argv[1]
 else:
-	print("The provided IP address is not valid")
+	print("The provided local IP address is not valid")
+	exit()
+
+if check(sys.argv[2]):
+	ReceiverUDP_IP = sys.argv[2]
+else:
+	print("The provided desticnation IP address is not valid")
 	exit()
 
 
 # Configurations
 Interface 		= "eth0" 			# The name of the listening interface
-UDP_IP 			= get_local_IP(Interface)	# The IP address of the listening interface
+#UDP_IP 			= get_local_IP(Interface)	# The IP address of the listening interface
 UDP_PORT 		= 10111				# The Port number used for listening
 #ReceiverUDP_IP 		= 				# The IP address of the receiver 
 ReceiverUDP_PORT	= 5556				# The Port number used for sending
