@@ -4,6 +4,22 @@
 import socket
 import netifaces as ni
 import time
+import sys
+import re
+
+regex = "^((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])$"
+
+def check(Ip):
+	valid = -1
+	# pass the regular expression
+	# and the string in search() method
+	if(re.search(regex, Ip)):
+		print("Valid Ip address")
+		valid = 1
+	else:
+		print("Invalid Ip address")
+		valid = 0
+	return valid
 
 # Automatic Identification of local IP address 
 def get_local_IP(Interface):
@@ -11,12 +27,19 @@ def get_local_IP(Interface):
 	ip = ni.ifaddresses(Interface)[ni.AF_INET][0]['addr']	
 	return ip
 
+print("First argument = " + str(sys.argv[1]))
+if check(sys.argv[1]):
+	ReceiverUDP_IP = sys.argv[1]
+else:
+	print("The provided IP address is not valid")
+	exit()
+
 
 # Configurations
 Interface 		= "eth0" 			# The name of the listening interface
 UDP_IP 			= get_local_IP(Interface)	# The IP address of the listening interface
 UDP_PORT 		= 10111				# The Port number used for listening
-ReceiverUDP_IP 		= get_local_IP(Interface)	# The IP address of the receiver 
+#ReceiverUDP_IP 		= 				# The IP address of the receiver 
 ReceiverUDP_PORT	= 5556				# The Port number used for sending
 MessageCodes 		= []				# Optional
 MessageCount		= 0				# 	
