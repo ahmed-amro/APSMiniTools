@@ -2,7 +2,6 @@
 
 
 import socket
-import netifaces as ni
 import re
 import sys
 
